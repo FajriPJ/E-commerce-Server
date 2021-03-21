@@ -78,11 +78,33 @@ describe("testing put /products/:id", () => {
           }
         })
     })
+    it("should return response with status code 400", (done) => {
+      const body = {
+        name: "",
+        image_url: "",
+        price: "",
+        stock: "",
+      }
+      request(app)
+        .put("/products/1")
+        .send(body)
+        .set('access_token', tokenAdmin)
+        .end((err, res) => {
+          if(err) {
+            done(err)
+          }else{
+            expect(res.statusCode).toEqual(400)
+            expect(typeof res.body).toEqual("object")
+            expect(res.body).toHaveProperty("message", ["name is required", "image_url is required", "input must be number", "input must be number", "stock is required", "input must be number", "input must be number"])
+            done()
+          }
+        })
+    })
   })
 })
 
 describe("testing delete /products/:id", () => {
-  describe("testing delete /products/:id", () => {
+  describe("testing delete /products/:id success", () => {
     it("should return response with status code 401, dont have access_token", (done) => {
       request(app)
         .delete("/products/1")
@@ -98,6 +120,24 @@ describe("testing delete /products/:id", () => {
           }
         })
     })
+  })
+  describe("testing delete /products/:id failed", () => {
+    it("should return response with status code 401", (done) => {
+      request(app)
+        .delete("/products/1")
+        .end((err, res) => {
+          if(err) {
+            done(err)
+          }
+          else{
+            expect(res.statusCode).toEqual(401)
+            expect(typeof res.body).toEqual("object")
+            expect(res.body).toHaveProperty("message", "unauthorized")
+            done()
+          }
+        })
+    })
+  
   })
 })
 
