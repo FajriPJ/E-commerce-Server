@@ -12,7 +12,6 @@ class UserController{
           const validPass = comparePassword(password, user.password);
           
           if(validPass){
-            console.log('masuk validPass');
             let payload = { id: user.id, email: user.email, role:user.role}
             res.status(200).json({
               id,

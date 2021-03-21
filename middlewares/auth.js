@@ -7,7 +7,6 @@ const authenticate = (req, res, next) => {
     User.findOne({where: {id}})
     .then(user => {
       req.current_user = {id: user.id, email: user.email, role:user.role}
-      console.log(req.current_user, 'dari auth===========');
       next()
     })
     .catch(err => {

@@ -29,7 +29,7 @@ class ProductController{
   static read(req, res, next){
     Product.findAll()
       .then(data => {
-        console.log(data, 'dari controler');
+        // console.log(data, 'dari controller');
         res.status(200).json(data)
       })
       .catch( err => {
