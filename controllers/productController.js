@@ -29,6 +29,7 @@ class ProductController{
   static read(req, res, next){
     Product.findAll()
       .then(data => {
+        console.log(data, 'dari controler');
         res.status(200).json(data)
       })
       .catch( err => {
@@ -93,7 +94,6 @@ class ProductController{
       next({status_code: 500, message: 'invalid internal server'})
     })
   }
-
 }
 
 module.exports = ProductController

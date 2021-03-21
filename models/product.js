@@ -30,10 +30,10 @@ module.exports = (sequelize, DataTypes) => {
           args: true,
           msg: "image_url is required"
         },
-        isUrl: {
-          args: true, 
-          msg: "invalid image url format"
-        }
+        // isUrl: {
+        //   args: true, 
+        //   msg: "invalid image url format"
+        // }
       }
     },
     price: {
@@ -42,6 +42,10 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty:{
           args: true,
           msg: "price is required"
+        },
+        isInt: {
+          args: true,
+          msg: 'input must be number'
         },
         min: {
           args: [0],
@@ -55,6 +59,10 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty:{
           args: true,
           msg: "stock is required"
+        },
+        isInt: {
+          args: true,
+          msg: 'input must be number'
         },
         min: {
           args: [0],

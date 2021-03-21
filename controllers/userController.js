@@ -12,7 +12,8 @@ class UserController{
           const validPass = comparePassword(password, user.password);
           
           if(validPass){
-            let payload = { id: user.id, email: user.email}
+            console.log('masuk validPass');
+            let payload = { id: user.id, email: user.email, role:user.role}
             res.status(200).json({
               id,
               email,
@@ -32,7 +33,6 @@ class UserController{
             errors.push(error.message)
           })
           if ( errors.length ){
-            
             next({status_code: 400, message: errors})
           } else {
             next({status_code: 500, message: 'invalid internal server'})
