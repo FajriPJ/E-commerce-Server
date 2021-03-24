@@ -66,6 +66,7 @@ class ProductController{
       }
     })
       .then(data => {
+        console.log(data, '=dari controlerr produt');
         res.status(200).json({message: "product updated"})
       })
       .catch(err => {

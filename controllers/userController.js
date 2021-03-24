@@ -4,6 +4,28 @@ const {generateToken} = require('../helpers/jwt');
 
 class UserController{
 
+  static register(req, res, next) {
+    let newUser = {
+      email: req.body.email,
+      password: req.body.password
+    }
+    User.create(newUser)
+      .then(user => {
+        res.status(201).json({user})
+      })
+      .catch(err => {
+        let errors = []
+        err.errors.map( err => {
+          errors.push(err.message)
+        })
+        if(errors) {
+          next({status_code: 400, message: errors})
+        }else {
+          next({status_code: 500, message: "internal server error"})
+        }
+      })
+  }
+
   static login(req, res, next){
     let {id, email, password} = req.body
     User.findOne({where: {email}})

@@ -1,4 +1,5 @@
 'use strict';
+const {hashPassword} = require('../helpers/passwordHelper');
 const {
   Model
 } = require('sequelize');
@@ -11,6 +12,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      User.hasMany(models.Cart)
+      
     }
   };
   User.init({
@@ -38,6 +41,12 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'User',
+    hooks: {
+      beforeCreate: (user, option) => {
+        user.password = hashPassword(user.password)
+        user.role = 'customer'
+      }
+    }
   });
   return User;
 };

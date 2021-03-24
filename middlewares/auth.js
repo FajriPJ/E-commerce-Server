@@ -18,23 +18,13 @@ const authenticate = (req, res, next) => {
 }
 
 const authorize = (req, res, next) => {
-  Product.findOne({
-    where: {
-      id: +req.params.id,
-      UserId: +req.current_user.id
-    }
-  })
-  .then(data => {
-    if (data){
-      next()
-    }
-    else{
-      next({status_code: 401, mesage: "unauthorized"})
-    }
-  })
-  .catch(err => {
-    res.status(401).json({message: 'no resources found'})
-  })
+
+  if (req.current_user.role === 'admin'){
+    next()
+  } else {
+    console.log('masuk authorized');
+    next({status_code: 401})
+  }
 }
 
 module.exports = {
