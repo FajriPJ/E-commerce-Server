@@ -25,7 +25,6 @@ class CartController{
     let ProductId = +req.params.productId
     let UserId = req.current_user.id
     let quantity = 1
-
     let newCart = {ProductId, UserId, quantity}
 
     Cart.findOne({
@@ -36,7 +35,8 @@ class CartController{
     })
     .then( cart => {
       if (cart) {
-        next({status_code: 400, message: 'Anda sudah memasukkan product ini ke dalam cart'})
+        cart.quantity = cart.quantity + 1
+        cart.save()
       } else {
         return Cart.create(newCart)
       }
@@ -69,7 +69,6 @@ class CartController{
 
     const quantity = {quantity: req.body.quantity}
 
-    console.log(quantity, '=====');
     Cart.findOne({  
       where: {id: +req.params.cartId},
       include: Product

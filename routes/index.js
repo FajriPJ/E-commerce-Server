@@ -20,7 +20,4 @@ router.get("/products/:id", ProductController.readOne)
 router.put("/products/:id", authorize,ProductController.update)
 router.delete("/products/:id", authorize,ProductController.delete)
 
-
-
-
 module.exports = router
