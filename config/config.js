@@ -29,6 +29,7 @@ module.exports = {
     dialect
   },
   "production": {
+    "use_env_variable": "DATABASE_URL",
     "username": "root",
     "password": null,
     "database": "database_production",
